@@ -1,18 +1,25 @@
 package CalculatorApp;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Buttons extends CalculatorFrame implements ActionListener {
 
     static String[] buttons;
-    //  static String text;
+
     static String text;
     JButton button;
+    int numberValue;
+
 
     public void buttons() {
 
@@ -38,84 +45,106 @@ class Buttons extends CalculatorFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-            text = ((JButton) e.getSource()).getText();
-            if (text.equals("0")) {
-                tf.setText(tf.getText() + text); }
-       if (text.equals("1")) {
-            tf.setText(tf.getText() + text); }
+        text = ((JButton) e.getSource()).getText();
+
+        if (text.equals("0")) {
+            tf.setText(tf.getText() + text);
+            numberValue = 0;
+
+        }
+        if (text.equals("1")) {
+            tf.setText(tf.getText() + text);
+            numberValue = 1;
+        }
         if (text.equals("2")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 2;
+        }
         if (text.equals("3")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 3;
+        }
         if (text.equals("4")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 4;
+        }
         if (text.equals("5")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 5;
+        }
         if (text.equals("6")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 6;
+        }
         if (text.equals("7")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 7;
+        }
         if (text.equals("8")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 8;
+        }
         if (text.equals("9")) {
-            tf.setText(tf.getText() + text); }
+            tf.setText(tf.getText() + text);
+            numberValue = 9;
+        }
 
         if (text.equals("+")) {
+            tf.setText(tf.getText() + text);
 
         }
         if (text.equals("-")) {
+            tf.setText(tf.getText() + text);
 
         }
-        if (text.equals("*")) {
-
+        if (text.equals("x")) {
+            tf.setText(tf.getText() + text);
         }
         if (text.equals("/")) {
-
+            tf.setText(tf.getText() + text);
         }
         if (text.equals(".")) {
-
+            tf.setText(tf.getText() + text);
         }
         if (text.equals("(")) {
-
+            tf.setText(tf.getText() + text);
         }
         if (text.equals(")")) {
+            tf.setText(tf.getText() + text);
         }
-            if (text.equals("=")) {
-
-            }
 
         if (text.equals("del")) {
-
+            int i = tf.getText().length();
+            tf.setText(tf.getText().substring(0, i - 1));
         }
 
-            if (text.equals("clr")) {
-                   tf.setText("");
-                }
+        if (text.equals("clr")) {
+            tf.setText(" ");
         }
-    }
+        if (text.equals("=")) {
 
-//       for (String button : buttons) {
-//           text = ((JButton) e.getSource()).getText();
-//            if (text.equals(button)) {
-//                tf.setText(tf.getText() + text);
-//
-//                   }
-//                if (text.equals("clr")) {
-//                    tf.setText("");
-//                }
-//                if (text.equals("del")) {
-//                    String tempTextField = tf.getText();
-//                    tf.setText("");
-//                    // for (int i = 0; i <= tempTextField.length() - 1; i++) {
-//                    tf.setText(tf.getText() + tempTextField);
-//                }
-//                if (text.equals("1")) {
-//                    tf.setText(tf.getText());
-//
-//
-//                }
-//
-//            }
+            Pattern seperateNumbers = Pattern.compile("[0-9]*\\.?[0-9]*");
+            Matcher m = seperateNumbers.matcher(tf.getText());
+            while(m.find())
+                System.out.println(m.group());
+
+            Pattern seperateOperands = Pattern.compile("[-+x/=()]");
+            Matcher matcher = seperateOperands.matcher(tf.getText());
+            while(matcher.find())
+                System.out.println(matcher.group());
+
+            Double parsedNumber = Double.parseDouble(String.valueOf(seperateNumbers));
+            System.out.println(parsedNumber);
+            }
+
+
+
+            }
+        }
+
+
+
+
 
 
 
