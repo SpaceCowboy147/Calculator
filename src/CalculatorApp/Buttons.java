@@ -1,14 +1,9 @@
 package CalculatorApp;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -123,24 +118,65 @@ class Buttons extends CalculatorFrame implements ActionListener {
         }
         if (text.equals("=")) {
 
-            Pattern seperateNumbers = Pattern.compile("[0-9]*\\.?[0-9]*");
-            Matcher m = seperateNumbers.matcher(tf.getText());
-            while(m.find())
-                System.out.println(m.group());
+            String parsedInteger = "";
+            String operator = "";
+            int aggregate = 0;
+            for (int i = 0; i < tf.getText().length(); i++) {
+                char c = tf.getText().charAt(i);
+                if (Character.isDigit(c)) {
+                    parsedInteger += c;
+                }
+                if (!Character.isDigit(c) || i == tf.getText().length() - 1) {
+                    int parsed = Integer.parseInt(parsedInteger);
+                    if (operator == "") {
+                        aggregate = parsed;
+                    } else {
+                        if (operator.equals("+")) {
+                            aggregate += parsed;
+                        } else {
+                            if (operator.equals("-")) {
+                                aggregate -= parsed;
+                            }  else {
+                                if(operator.equals("x"))
+                                aggregate *= parsed;
+                                else {
+                                    if( operator.equals("/")) {
+                                        aggregate /= parsed;
 
-            Pattern seperateOperands = Pattern.compile("[-+x/=()]");
-            Matcher matcher = seperateOperands.matcher(tf.getText());
-            while(matcher.find())
-                System.out.println(matcher.group());
+                                        }
+                                    }
+                                }
+                                }
+                            }
 
-            Double parsedNumber = Double.parseDouble(String.valueOf(seperateNumbers));
-            System.out.println(parsedNumber);
+                    parsedInteger = "";
+                    operator = "" + c;
+                }
             }
-
-
-
-            }
+            tf.setText(String.valueOf(aggregate));
+            System.out.println("Sum of " + tf.getText() + ":\r\n" + aggregate);
         }
+        }
+
+//            Pattern seperateNumbers = Pattern.compile("(-?)(\\d+)(+|-|*|/)(-?)(\\d+)"); //("[0-9]*\\.?[0-9]*");
+//            Matcher m = seperateNumbers.matcher(tf.getText());
+//            while(m.find())
+//                System.out.println(m.group());
+//
+//            Pattern seperateOperands = Pattern.compile("[-+x/=()]");
+//            Matcher matcher = seperateOperands.matcher(tf.getText());
+//            while(matcher.find())
+//                System.out.println(matcher.group());
+//
+//            Double parsedNumber = Double.parseDouble(String.valueOf(seperateNumbers));
+//            System.out.println(parsedNumber);
+
+
+
+
+    }
+
+
 
 
 
