@@ -114,20 +114,21 @@ class Buttons extends CalculatorFrame implements ActionListener {
         }
 
         if (text.equals("clr")) {
-            tf.setText(" ");
+            int i = tf.getText().length();
+            tf.setText(tf.getText().substring(0, i - tf.getText().length()));
         }
         if (text.equals("=")) {
 
-            String parsedInteger = "";
+            String parsedDouble = "";
             String operator = "";
-            int aggregate = 0;
+            double aggregate = 0;
             for (int i = 0; i < tf.getText().length(); i++) {
                 char c = tf.getText().charAt(i);
                 if (Character.isDigit(c)) {
-                    parsedInteger += c;
+                    parsedDouble += c;
                 }
                 if (!Character.isDigit(c) || i == tf.getText().length() - 1) {
-                    int parsed = Integer.parseInt(parsedInteger);
+                    double parsed = Double.parseDouble(parsedDouble);
                     if (operator == "") {
                         aggregate = parsed;
                     } else {
@@ -144,21 +145,23 @@ class Buttons extends CalculatorFrame implements ActionListener {
                                         aggregate /= parsed;
 
                                         }
+
                                     }
                                 }
                                 }
                             }
 
-                    parsedInteger = "";
+                    parsedDouble = "";
                     operator = "" + c;
                 }
             }
+            System.out.println(tf.getText() + "=\r\n" + aggregate);
             tf.setText(String.valueOf(aggregate));
-            System.out.println("Sum of " + tf.getText() + ":\r\n" + aggregate);
+
         }
         }
 
-//            Pattern seperateNumbers = Pattern.compile("(-?)(\\d+)(+|-|*|/)(-?)(\\d+)"); //("[0-9]*\\.?[0-9]*");
+            //Pattern seperateNumbers = Pattern.compile("[0-9]*\\.?[0-9]*");
 //            Matcher m = seperateNumbers.matcher(tf.getText());
 //            while(m.find())
 //                System.out.println(m.group());
