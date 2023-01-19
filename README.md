@@ -1,7 +1,7 @@
 # Calculator
 Java Calculator made with Java swing.
 
-Can do addition, subtractiion, multiplation, and division. 
+Can do addition, subtractiion, multiplication, and division. 
 Only takes ints as of now because when i tried doubles this happened for example:
 input : 2.2 + 2.3
 output: 4.0
